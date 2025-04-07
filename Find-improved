@@ -1,0 +1,26 @@
+#!/bin/bash
+echo "please enter accurate, unique filename"
+read file
+#input stored as file variable
+file_path=$(find / -name $file 2>/dev/null)
+#calls file variable into find command and stores that output as file_path variable
+echo "search.... running checks"
+if [ -e $file_path ] 
+#if to confirm weather or not the file found exists
+then
+	echo "file found, it does exist"
+	echo "path is: $file_path"
+	if [ -r $file_path ] && [ -w $file_path ]; then
+#stacked if filters to learn if it has read and write permissions
+		echo "it has read and write permission"
+		if [ -s $file_path ]; then
+			echo "file is not empty"
+		else
+			echo "file is empty"
+		fi
+	else
+		echo "it missing a read or write permission or both"
+	fi
+else
+	echo 'DOES NOT EXIST!!'
+fi
